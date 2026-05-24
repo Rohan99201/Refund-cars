@@ -361,7 +361,7 @@
     <!-- Ferrari F8 -->
     <article class="car-card">
       <div class="car-img-wrap">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Ferrari_F8_Tributo_Genf_2019_1Y7A5665.jpg/1280px-Ferrari_F8_Tributo_Genf_2019_1Y7A5665.jpg" alt="Ferrari F8 Tributo" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1541038730887-f62e4fc0c3ca?w=800&q=80" alt="Ferrari F8 Tributo" loading="lazy" />
         <div class="badge">Exotic</div>
       </div>
       <div class="car-info">
@@ -429,13 +429,15 @@
       }, 3500);
     }
 
+    var BMW_M5_TXN_ID = 'TXN-M5-2024-FIXED';
+
     function handlePurchase(name, id, price) {
-      /* GA4-style ecommerce purchase event */
-      window.dataLayer.push({ ecommerce: null }); // clear previous
+      var txnId = (id === 'M5-2024') ? BMW_M5_TXN_ID : 'TXN-' + Date.now();
+      window.dataLayer.push({ ecommerce: null });
       window.dataLayer.push({
         event: 'purchase',
         ecommerce: {
-          transaction_id: 'TXN-' + Date.now(),
+          transaction_id: txnId,
           value: price,
           currency: 'SAR',
           items: [{
@@ -447,17 +449,17 @@
           }]
         }
       });
-      addLog('purchase  ·  ' + name + '  ·  ' + formatSAR(price));
+      addLog('purchase  ·  ' + name + '  ·  ' + formatSAR(price) + '  ·  txn: ' + txnId);
       showToast('✓  Purchase confirmed: ' + name + '  ·  ' + formatSAR(price));
     }
 
     function handleRefund(name, id, price) {
-      /* GA4-style ecommerce refund event */
-      window.dataLayer.push({ ecommerce: null }); // clear previous
+      var txnId = (id === 'M5-2024') ? BMW_M5_TXN_ID : 'REF-' + Date.now();
+      window.dataLayer.push({ ecommerce: null });
       window.dataLayer.push({
         event: 'refund',
         ecommerce: {
-          transaction_id: 'REF-' + Date.now(),
+          transaction_id: txnId,
           value: price,
           currency: 'SAR',
           items: [{
@@ -469,7 +471,7 @@
           }]
         }
       });
-      addLog('refund  ·  ' + name + '  ·  ' + formatSAR(price), true);
+      addLog('refund  ·  ' + name + '  ·  ' + formatSAR(price) + '  ·  txn: ' + txnId, true);
       showToast('↩  Refund initiated: ' + name + '  ·  ' + formatSAR(price), true);
     }
   </script>
