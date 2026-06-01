@@ -361,7 +361,7 @@
     <!-- Ferrari F8 -->
     <article class="car-card">
       <div class="car-img-wrap">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Ferrari_F8_Tributo_Genf_2019_1Y7A5665.jpg/1280px-Ferrari_F8_Tributo_Genf_2019_1Y7A5665.jpg" alt="Ferrari F8 Tributo" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1541038730887-f62e4fc0c3ca?w=800&q=80" alt="Ferrari F8 Tributo" loading="lazy" />
         <div class="badge">Exotic</div>
       </div>
       <div class="car-info">
@@ -376,6 +376,28 @@
         <div class="btn-row">
           <button class="btn-purchase" onclick="handlePurchase('Ferrari F8 Tributo','F8-TRI',1120000)">Purchase</button>
           <button class="btn-refund" onclick="handleRefund('Ferrari F8 Tributo','F8-TRI',1120000)">Refund</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Lamborghini Urus — same txn ID + same price for purchase & refund -->
+    <article class="car-card">
+      <div class="car-img-wrap">
+        <img src="https://images.unsplash.com/photo-1621135802920-133df287f89c?w=800&q=80" alt="Lamborghini Urus S" loading="lazy" />
+        <div class="badge">SUV Sport</div>
+      </div>
+      <div class="car-info">
+        <div class="car-make">Lamborghini</div>
+        <div class="car-name">Urus S</div>
+        <div class="car-specs">
+          <div class="spec"><i class="ti ti-engine"></i> 4.0L Twin-T</div>
+          <div class="spec"><i class="ti ti-bolt"></i> 666 HP</div>
+          <div class="spec"><i class="ti ti-gauge"></i> 3.5s 0–100</div>
+        </div>
+        <div class="car-price">SAR 890,000 <span>including VAT</span></div>
+        <div class="btn-row">
+          <button class="btn-purchase" onclick="handlePurchase('Lamborghini Urus S','URUS-S',890000)">Purchase</button>
+          <button class="btn-refund" onclick="handleRefund('Lamborghini Urus S','URUS-S',890000)">Refund</button>
         </div>
       </div>
     </article>
@@ -430,9 +452,12 @@
     }
 
     var BMW_M5_TXN_ID = 'TXN-M5-2024-FIXED';
+    var URUS_TXN_ID    = 'TXN-URUS-S-FIXED';
 
     function handlePurchase(name, id, price) {
-      var txnId = (id === 'M5-2024') ? BMW_M5_TXN_ID : 'TXN-' + Date.now();
+      var txnId = (id === 'M5-2024') ? BMW_M5_TXN_ID
+                : (id === 'URUS-S') ? URUS_TXN_ID
+                : 'TXN-' + Date.now();
       window.dataLayer.push({ ecommerce: null });
       window.dataLayer.push({
         event: 'purchase',
@@ -454,7 +479,9 @@
     }
 
     function handleRefund(name, id, price) {
-      var txnId = (id === 'M5-2024') ? BMW_M5_TXN_ID : 'REF-' + Date.now();
+      var txnId = (id === 'M5-2024') ? BMW_M5_TXN_ID
+                : (id === 'URUS-S') ? URUS_TXN_ID
+                : 'REF-' + Date.now();
       window.dataLayer.push({ ecommerce: null });
       window.dataLayer.push({
         event: 'refund',
