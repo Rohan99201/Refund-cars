@@ -402,6 +402,28 @@
       </div>
     </article>
 
+    <!-- Aston Martin DB12 — eventTracker purchase with custom_event_name -->
+    <article class="car-card">
+      <div class="car-img-wrap">
+        <img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=800&q=80" alt="Aston Martin DB12" loading="lazy" />
+        <div class="badge">Special</div>
+      </div>
+      <div class="car-info">
+        <div class="car-make">Aston Martin</div>
+        <div class="car-name">DB12</div>
+        <div class="car-specs">
+          <div class="spec"><i class="ti ti-engine"></i> 4.0L Twin-T</div>
+          <div class="spec"><i class="ti ti-bolt"></i> 671 HP</div>
+          <div class="spec"><i class="ti ti-gauge"></i> 3.6s 0–100</div>
+        </div>
+        <div class="car-price">SAR 995,000 <span>including VAT</span></div>
+        <div class="btn-row">
+          <button class="btn-purchase" onclick="handleTrackerPurchase('Aston Martin DB12','DB12-AM',995000)">Purchase</button>
+          <button class="btn-refund" onclick="handleRefund('Aston Martin DB12','DB12-AM',995000)">Refund</button>
+        </div>
+      </div>
+    </article>
+
   </main>
 
   <!-- DATALAYER LOG -->
@@ -500,6 +522,29 @@
       });
       addLog('refund  ·  ' + name + '  ·  ' + formatSAR(price) + '  ·  txn: ' + txnId, true);
       showToast('↩  Refund initiated: ' + name + '  ·  ' + formatSAR(price), true);
+    }
+
+    function handleTrackerPurchase(name, id, price) {
+      var txnId = 'TXN-' + Date.now();
+      window.dataLayer.push({ ecommerce: null });
+      window.dataLayer.push({
+        event: 'eventTracker',
+        custom_event_name: 'purchase',
+        ecommerce: {
+          transaction_id: txnId,
+          value: price,
+          currency: 'SAR',
+          items: [{
+            item_id: id,
+            item_name: name,
+            item_category: 'Automotive',
+            price: price,
+            quantity: 1
+          }]
+        }
+      });
+      addLog('eventTracker [purchase]  ·  ' + name + '  ·  ' + formatSAR(price) + '  ·  txn: ' + txnId);
+      showToast('✓  Purchase confirmed: ' + name + '  ·  ' + formatSAR(price));
     }
   </script>
 
